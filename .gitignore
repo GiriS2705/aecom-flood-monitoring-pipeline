@@ -1,17 +1,18 @@
+# Python
 venv/
-
-.env
-
 __pycache__/
-
 *.pyc
 
-*.log
+# Environment
+.env
 
-sample_data/
-
-.dbt/
-
+# dbt
+dbt_packages/
 target/
-
 logs/
+
+# VS Code
+.vscode/
+
+# Snowflake credentials
+snowflake/03_stage.sql
