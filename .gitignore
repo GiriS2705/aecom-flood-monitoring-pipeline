@@ -1,18 +1,27 @@
 # Python
-venv/
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
 
-# Environment
+# Virtual Environments
+venv/
+dbt_env/
+
+# Environment Variables
 .env
 
 # dbt
-dbt_packages/
 target/
 logs/
+dbt_packages/
 
 # VS Code
 .vscode/
 
-# Snowflake credentials
-snowflake/03_stage.sql
+# OS
+.DS_Store
+Thumbs.db
+
+# Python cache
+.pytest_cache/

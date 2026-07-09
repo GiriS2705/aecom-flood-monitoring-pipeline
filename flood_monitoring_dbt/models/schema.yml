@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: raw
+    database: AECOM_DB
+    schema: FLOOD_MONITORING
+
+    tables:
+      - name: bronze_stations
+      - name: bronze_readings
+
+models:
+  - name: stg_stations
+    columns:
+      - name: station_reference
+        tests:
+          - not_null
+
+  - name: stg_readings
+    columns:
+      - name: station_reference
+        tests:
+          - not_null
+
+  - name: flood_monitoring
+    columns:
+      - name: station_reference
+        tests:
+          - not_null

@@ -1,0 +1,37 @@
+WITH readings AS (
+
+SELECT
+
+    VALUE:dateTime::TIMESTAMP_NTZ AS READING_TIME,
+
+    VALUE:measure::STRING AS MEASURE_URL,
+
+    VALUE:value::FLOAT AS WATER_LEVEL,
+
+    SPLIT_PART(
+        SPLIT_PART(VALUE:measure::STRING,'/measures/',2),
+        '-level',
+        1
+    ) AS STATION_REFERENCE
+
+FROM {{ source('raw','bronze_readings') }},
+LATERAL FLATTEN(input => RAW_JSON:items)
+
+WHERE VALUE:measure IS NOT NULL
+AND VALUE:value IS NOT NULL
+
+)
+
+SELECT *
+
+FROM readings
+
+QUALIFY ROW_NUMBER() OVER (
+
+PARTITION BY
+STATION_REFERENCE,
+READING_TIME
+
+ORDER BY READING_TIME DESC
+
+)=1
